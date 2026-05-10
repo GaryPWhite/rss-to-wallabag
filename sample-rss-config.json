@@ -1,0 +1,20 @@
+{
+    "wallabag": {
+        "url": "https://your-wallabag-instance.com/",
+        "client-id": "your-client-id",
+        "client-secret": "your-client-secret",
+        "username": "your-username",
+        "password": "your-password"
+    },
+    "feeds": [
+        {
+            "url": "https://example.com/feed.xml",
+            "tags": ["example", "news"]
+        },
+        {
+            "url": "https://example.com/full-text-feed.xml",
+            "tags": ["entertainment"],
+            "full-text" : true
+        }
+    ]
+}
