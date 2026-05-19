@@ -1,4 +1,3 @@
-use std::default;
 use std::ops::Range;
 
 use crate::config::Feed;
@@ -6,7 +5,7 @@ use crate::config::RSSConfig;
 use crate::config::WallabagConfig;
 
 mod config;
-mod fetch_feeds;
+mod rss;
 
 #[tokio::main]
 async fn main() {
@@ -27,7 +26,7 @@ async fn main() {
         });
     for feed in feeds.iter() {
         // fetch the contents of the rss feed (https://en.wikipedia.org/wiki/RSS)
-        let items = fetch_feeds::get_feed_items(&feed.url)
+        let items = rss::get_feed_items(&feed.url)
             .await
             .unwrap_or_else(|f| {
                 println!("could not fetch feeds: {:?}", f);
@@ -35,7 +34,7 @@ async fn main() {
             });
         // read max per feed or
         let max_to_upload = std::cmp::min(max_per_feed, items.len() as i32);
-        for idx in (Range {
+        for _idx in (Range {
             start: 0,
             end: max_to_upload,
         }) {

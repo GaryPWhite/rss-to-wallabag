@@ -21,7 +21,8 @@ pub(crate) struct WallabagConfig {
 pub(crate) struct Feed {
     pub url: String,
     pub tags: Vec<String>,
-    pub fulltext: Option<bool>,
+    // can be "ghost-fulltext" or defaults to "rss"
+    pub flavor: Option<String>,
     // a cookie string to send with any GET requests for RSS feeds
     // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies#creating_removing_and_updating_cookies
     pub cookies: Option<String>
