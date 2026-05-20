@@ -10,15 +10,20 @@ use serde::{Deserialize, Serialize};
 // We should also populate preview_picture, tags, published_at, authors, and origin_url
 
 #[derive(Serialize, Deserialize)]
+pub(crate) struct RSSRoot {
+    pub channel: RSSFeed
+}
+
+#[derive(Serialize, Deserialize)]
 pub(crate) struct RSSFeed {
     #[serde(rename = "item")]
     pub items: Vec<RSSItem>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub(crate) struct RSSItem {
     // required in ATOM and RSS Feeds
-    pub title: String,
+    pub title: Option<String>,
     pub link: String,
     // sometimes-provided fields
     pub description: Option<String>,
@@ -40,8 +45,8 @@ pub(crate) async fn get_feed_items(url: &String) -> Result<Vec<RSSItem>, Error> 
         }
     ).text().await {
         Ok(body) => {
-            let feed: RSSFeed = quick_xml::de::from_str(&body).expect(format!("failed to parse xml from url {:?}", url).as_str());
-            Ok(feed.items)
+            let _doc: RSSRoot = quick_xml::de::from_str(&body).expect(format!("failed to parse xml from url {:?}", url).as_str());
+            Ok(_doc.channel.items)
         }
         Err(e) => return Err(e)
     }

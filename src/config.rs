@@ -8,7 +8,7 @@ pub(crate) struct RSSConfig {
     pub feeds: Vec<Feed>,
 }
 
-#[derive(Serialize, Deserialize, Default, Debug)]
+#[derive(Serialize, Deserialize, Default, Debug, Clone)]
 pub(crate) struct WallabagConfig {
     pub url: String,
     pub clientid: String,
